@@ -28,7 +28,7 @@ if (commandUsed.includes('my-tweets')) {
         console.log(tweets.statuses[i].text);
         console.log('------------------------');
       }
-      // console.log(tweets); <- logs all info on tweets
+      // console.log(tweets); // <- logs all info on tweets
     }
   });
 }

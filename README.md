@@ -1,11 +1,12 @@
 # liri-node-app
 Language Interpretation and Recognition Interface
 ## Getting Started
-Clone the repo, navigate to it in your terminal
+Clone the repo and  navigate to it in your terminal
 ### Install
+Type 
 ```npm install```
 ### Commands
-* my-tweets
-* spotify-this-song (song name)
-* movie-this (movie title)
-* do-what-it-says
+* ```node liri.js  my-tweets```
+* ```node liri.js  spotify-this-song (song name)```
+* ```node liri.js  movie-this (movie title)```
+* ```node liri.js  do-what-it-says```
