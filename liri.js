@@ -1,7 +1,5 @@
-// Variable that has all the twitter keys stored
-var twitterKeys = require('./keys.js');
-// ----------------------------------------------------
 // Require the libraries needed for application to run
+var twitterKeys = require('./keys.js');
 var Twitter = require('twitter');
 var request = require('request');
 var spotify = require('node-spotify-api');
@@ -36,7 +34,7 @@ if (commandUsed.includes('my-tweets')) {
 }
 // ----------------------------------------------------
 // If User uses 'spotify-this-song' command
-else if (commandUsed.includes('spotify-this-song') && commandUsed.length === 2) {
+else if (commandUsed.includes('spotify-this-song')) {
 
 }
 // ----------------------------------------------------
