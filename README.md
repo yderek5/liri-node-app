@@ -6,6 +6,6 @@ Clone the repo, navigate to it in your terminal
 ```npm install```
 ### Commands
 * my-tweets
-* spotify-this-song <song name>
-* movie-this <movie title>
+* spotify-this-song (song name)
+* movie-this (movie title)
 * do-what-it-says
