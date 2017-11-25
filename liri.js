@@ -3,6 +3,7 @@ var twitterKeys = require('./keys.js');
 var Twitter = require('twitter');
 var request = require('request');
 var spotify = require('node-spotify-api');
+var fs = require('fs');
 // ----------------------------------------------------
 // Get user input
 var commandUsed = process.argv.slice(2, process.argv.length);
@@ -34,7 +35,27 @@ if (commandUsed.includes('my-tweets')) {
 // ----------------------------------------------------
 // If User uses 'spotify-this-song' command
 else if (commandUsed.includes('spotify-this-song')) {
+    var spotify = new spotify({
+    id: '532f51e6f33a4fda80226df37c2f8f7e',
+    secret: '88f87df049f7476583f1ce85770ecaa8'
+  });
 
+  var songTitle = commandUsed.slice(1, commandUsed.length);
+  songTitle.join();
+
+  if (commandUsed.length === 1) {
+    songTitle = 'The Sign Ace of Base';
+  }
+
+  spotify.search({ type: 'track', query: songTitle }, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+    console.log(data.tracks.items[0].artists[0].name);
+    console.log(data.tracks.items[0].name);
+    console.log(data.tracks.items[0].album.name);
+    console.log(data.tracks.items[0].uri);
+  });
 }
 // ----------------------------------------------------
 // If User uses the 'movie-this' command
@@ -70,5 +91,12 @@ else if (commandUsed.includes('movie-this')) {
 // ----------------------------------------------------
 // If User uses the 'do-what-it-says' command
   else if (commandUsed.includes('do-what-it-says')) {
-
-  }
+    fs.readFile('random.txt', 'utf-8', function(err, res) {
+      if(err) {
+        return console.log(err);
+      }
+      commandUsed = res;
+      console.log(res);
+      console.log(commandUsed);
+    });
+  } // No code below here
