@@ -3,54 +3,57 @@ var twitterKeys = require('./keys.js');
 var Twitter = require('twitter');
 var request = require('request');
 var spotify = require('node-spotify-api');
+var spotify = new spotify({
+  id: '532f51e6f33a4fda80226df37c2f8f7e',
+  secret: '88f87df049f7476583f1ce85770ecaa8'
+});
 var fs = require('fs');
 // ----------------------------------------------------
 // Get user input
 var commandUsed = process.argv.slice(2, process.argv.length);
 // ----------------------------------------------------
-// If User uses 'my-tweets' command
-if (commandUsed.includes('my-tweets')) {
-  var client = new Twitter({
-    consumer_key: twitterKeys.consumer_key,
-    consumer_secret: twitterKeys.consumer_secret,
-    access_token_key: twitterKeys.access_token_key,
-    access_token_secret: twitterKeys.access_token_secret
-  });
-  showTweets();
-}
-// ----------------------------------------------------
-// If User uses 'spotify-this-song' command
-else if (commandUsed.includes('spotify-this-song')) {
-  var spotify = new spotify({
-    id: '532f51e6f33a4fda80226df37c2f8f7e',
-    secret: '88f87df049f7476583f1ce85770ecaa8'
-  });
-  spotifyThis();
-}
-// ----------------------------------------------------
-// If User uses the 'movie-this' command
-else if (commandUsed.includes('movie-this')) {
-  movieThis();
-}
-// ----------------------------------------------------
-// If User uses the 'do-what-it-says' command
-else if (commandUsed.includes('do-what-it-says')) {
-  fs.readFile('random.txt', 'utf-8', function(err, res) {
-    if (err) {
-      return console.log(err);
-    }
-    commandUsed.push(res);
-    commandUsed = commandUsed.slice(1, commandUsed.length).join(',').split(',');
+function commands() {
+  // If User uses 'my-tweets' command
+  if (commandUsed.includes('my-tweets')) {
+    showTweets();
+  }
+  // ----------------------------------------------------
+  // If User uses 'spotify-this-song' command
+  else if (commandUsed.includes('spotify-this-song')) {
     spotifyThis();
-    console.log(commandUsed);
-  });
+  }
+  // ----------------------------------------------------
+  // If User uses the 'movie-this' command
+  else if (commandUsed.includes('movie-this')) {
+    movieThis();
+  }
+  // ----------------------------------------------------
+  // If User uses the 'do-what-it-says' command
+  else if (commandUsed.includes('do-what-it-says')) {
+    fs.readFile('random.txt', 'utf-8', function(err, res) {
+      if (err) {
+        return console.log(err);
+      }
+      commandUsed.push(res);
+      commandUsed = commandUsed.slice(1, commandUsed.length).join(',').split(',');
+      console.log(commandUsed);
+      commands();
+    });
+  }
 }
+commands();
 // ----------------------------------------------------
 // FUNCTIONS
 function showTweets() {
   var params = {
     screen_name: 'nodejs'
   };
+  var client = new Twitter({
+    consumer_key: twitterKeys.consumer_key,
+    consumer_secret: twitterKeys.consumer_secret,
+    access_token_key: twitterKeys.access_token_key,
+    access_token_secret: twitterKeys.access_token_secret
+  });
   client.get('search/tweets', {
     q: 'yderek5'
   }, function(error, tweets, response) {
@@ -70,11 +73,10 @@ function showTweets() {
 function spotifyThis() {
   var songTitle = commandUsed.slice(1, commandUsed.length);
   songTitle.join();
-
   if (commandUsed.length === 1) {
     songTitle = 'The Sign Ace of Base';
   }
-
+  console.log(songTitle);
   spotify.search({
     type: 'track',
     query: songTitle
@@ -89,7 +91,7 @@ function spotifyThis() {
   });
 }
 
-function movieThis(movieTitle) {
+function movieThis() {
   var apiKey = "&apikey=trilogy";
   var movieTitle;
   commandUsed = commandUsed.slice(1, commandUsed.length);
