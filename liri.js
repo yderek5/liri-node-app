@@ -76,7 +76,6 @@ function spotifyThis() {
   if (commandUsed.length === 1) {
     songTitle = 'The Sign Ace of Base';
   }
-  console.log(songTitle);
   spotify.search({
     type: 'track',
     query: songTitle
