@@ -1,11 +1,12 @@
+require('dotenv').config();
 // Require the libraries needed for application to run
 var twitterKeys = require('./keys.js');
 var Twitter = require('twitter');
 var request = require('request');
 var spotify = require('node-spotify-api');
 var spotify = new spotify({
-  id: '532f51e6f33a4fda80226df37c2f8f7e',
-  secret: '88f87df049f7476583f1ce85770ecaa8'
+  id: process.env.spotify_id,
+  secret: process.env.spotify_secret
 });
 var fs = require('fs');
 // ----------------------------------------------------
